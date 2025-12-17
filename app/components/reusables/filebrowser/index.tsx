@@ -5,47 +5,23 @@ import { FaFileAlt } from "react-icons/fa";
 import { IoChevronForward } from "react-icons/io5";
 
 import type { Folder } from "@/types";
+import { cn } from "@/lib/utils";
 
-export default function index() {
-  let folders: Folder[] = [
-    {
-      name: "Home",
-      folders: [
-        {
-          name: "Music",
-          folders: [
-            { name: "Artists", folders: [] },
-            { name: "Albums", folders: [] },
-          ],
-        },
-        {
-          name: "Videos",
-          folders: [
-            { name: "Movies", folders: [] },
-            {
-              name: "TV Shows",
-              folders: [
-                { name: "Season 1", folders: [] },
-                { name: "Season 2", folders: [] },
-              ],
-            },
-          ],
-        },
-        {
-          name: "Pictures",
-          folders: [
-            { name: "Wallpapers", folders: [] },
-            { name: "Screenshots", folders: [] },
-          ],
-        },
-        { name: "Documents", folders: [] },
-        { name: "Passwords.txt" },
-      ],
-    },
-  ];
+interface FileBrowserProps {
+  folders: Folder[];
+  wrapperClasses?: string;
+}
 
+/**
+ * A file browser component that renders a hierarchical list of folders and files.
+ * @param {FileBrowserProps} props - The props object
+ * @param {Folder[]} props.folders - The list of folders to render
+ * @param {string} [props.wrapperClasses] - The wrapper classes to apply to the component
+ * @returns {JSX.Element} The rendered file browser component
+ */
+export default function FileBrowser({ folders, wrapperClasses }: FileBrowserProps) {
   return (
-    <div className="dark:border-gray-700 rounded-md p-8 max-w-md mx-auto">
+    <div className={cn("w-full", wrapperClasses)}>
       <ul>
         <Node folder={folders[0]} />
       </ul>
@@ -53,7 +29,16 @@ export default function index() {
   );
 }
 
-function Node({ folder }: { folder: Folder }) {
+interface NodeProps {
+  folder: Folder;
+}
+/**
+ * A single node in the file browser component. It renders a single folder or file.
+ * @param {object} props - The props object
+ * @param {Folder} props.folder - The folder to render
+ * @returns {JSX.Element} The rendered node component
+ */
+function Node({ folder }: NodeProps) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const isFolder = folder.folders !== undefined;
