@@ -1,7 +1,13 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "editor.tabSize": 1,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.insertSpaces": false,
-  "files.eol": "\n"
+  "editor.tabSize": 1,
+  "files.eol": "\n",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
