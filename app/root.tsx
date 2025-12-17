@@ -32,8 +32,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="min-h-dvh flex flex-col justify-between items-center">
+        <div className="w-full sticky top-0 bg-gray-100 dark:bg-gray-800 shadow">
+          <header className="container mx-auto p-3 flex justify-between">
+            <h1 className="text-2xl">React FileBrowser</h1>
+            <nav>
+              <ul className="flex gap-2 mt-2">
+                <li>
+                  <a href="/">Home</a>
+                </li>
+              </ul>
+            </nav>
+          </header>
+        </div>
+        <main className="grow">{children}</main>
+        <div className="w-full bg-gray-100 dark:bg-gray-800 shadow">
+          <footer className="text-center p-2">
+            <p>All rights to me.</p>
+          </footer>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
