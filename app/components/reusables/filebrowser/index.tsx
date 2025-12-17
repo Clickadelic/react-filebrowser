@@ -4,10 +4,7 @@ import { FaFolder } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
 import { IoChevronForward } from "react-icons/io5";
 
-type Folder = {
-	name: string;
-	folders?: Folder[];
-};
+import type { Folder } from "@/types";
 
 export default function index() {
   let folders: Folder[] = [
@@ -57,36 +54,36 @@ export default function index() {
 }
 
 function Node({ folder }: { folder: Folder }) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const isFolder = folder.folders !== undefined;
-  const hasChildren = isFolder && folder.folders !== undefined && folder.folders.length > 0;
+    const isFolder = folder.folders !== undefined;
+    const hasChildren = isFolder && folder.folders !== undefined && folder.folders.length > 0;
 
-  return (
-    <li className="mb-1">
-      <div className="flex items-center gap-1.5">
-        {hasChildren && (
-          <button onClick={() => setIsOpen(!isOpen)}>
-            <IoChevronForward
-              className={`size-5 text-gray-400 transition-transform ${
-                isOpen ? "rotate-90" : ""
-              }`}
-            />
-          </button>
+    return (
+      <li className="mb-1">
+        <div className="flex items-center gap-1.5">
+          {hasChildren && (
+            <button onClick={() => setIsOpen(!isOpen)}>
+              <IoChevronForward
+                className={`size-5 text-gray-400 transition-transform ${
+                  isOpen ? "rotate-90" : ""
+                }`}
+              />
+            </button>
+          )}
+
+          {isFolder ? <FaFolder className="size-5" /> : <FaFileAlt className="size-5" />}
+
+          <span className="text-xl flex mt-1">{folder.name}</span>
+        </div>
+
+        {hasChildren && isOpen && (
+          <ul className="pl-6 flex flex-col">
+            {folder.folders!.map(child => (
+              <Node key={child.name} folder={child} />
+            ))}
+          </ul>
         )}
-
-        {isFolder ? <FaFolder className="size-5" /> : <FaFileAlt className="size-5" />}
-
-        <span className="text-xl flex mt-1">{folder.name}</span>
-      </div>
-
-      {hasChildren && isOpen && (
-        <ul className="pl-6 flex flex-col">
-          {folder.folders!.map(child => (
-            <Node key={child.name} folder={child} />
-          ))}
-        </ul>
-      )}
-    </li>
-  );
+      </li>
+    );
 }
