@@ -22,7 +22,7 @@ interface FileBrowserProps {
 export default function FileBrowser({ folders, wrapperClasses }: FileBrowserProps) {
   return (
     <div className={cn("w-full", wrapperClasses)}>
-      <ul>
+      <ul className="list-none list-inside mt-3">
         <Node folder={folders[0]} />
       </ul>
     </div>
